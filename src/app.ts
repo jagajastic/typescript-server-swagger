@@ -9,6 +9,11 @@ import path from 'path';
 import apiRouter from './routes/index';
 import schema from './schema';
 
+// swagger documentation
+// swager doc import
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './swagger.json';
+
 const app = express();
 
 // Setup Request logging
@@ -46,7 +51,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api', apiRouter);
+app.use('/api/', apiRouter);
+app.use('/api/admin', apiRouter);
+// swagger endpoint
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(
   '/graphql',
