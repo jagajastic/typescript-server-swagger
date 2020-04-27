@@ -1,9 +1,12 @@
-# Express React Template with Typescript
+# Fans Unity Express Typescript server
 
 Run the server with
 
 ```bash
 yarn
+# tsc compiles the typescript
+yarn tsc
+# start the server
 yarn start
 ```
 
