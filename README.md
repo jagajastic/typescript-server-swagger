@@ -1,4 +1,4 @@
-# Fans Unity Express Typescript server
+# Express Typescript server
 
 Run the server with
 
