@@ -9,4 +9,4 @@ RUN yarn
 
 COPY . .
 EXPOSE 27017
-CMD ["yarn", "start"]
+CMD ["yarn", "start:dev"]
