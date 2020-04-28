@@ -14,6 +14,8 @@ import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
 
+require('dotenv').config();
+
 const app = express();
 
 // Setup Request logging
@@ -45,6 +47,7 @@ app.use(
   }),
 );
 
+console.log(process.env.MONGO_URI);
 // mongoose db connection
 mongoose.connect(`${process.env.MONGO_URI}`, {
   useNewUrlParser: true,
