@@ -8,8 +8,8 @@ import path from 'path';
 
 import apiRouter from './routes/index';
 import schema from './schema';
+import mongoose from 'mongoose';
 
-// swagger documentation
 // swager doc import
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
@@ -45,6 +45,24 @@ app.use(
   }),
 );
 
+// mongoose db connection
+mongoose.connect(`${process.env.MONGO_URI}`, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+});
+
+const connection = mongoose.connection;
+connection.once('open', () => {
+  console.error('MongoDB database connection established successfully!');
+  // seed();
+});
+connection.once('open', () => {});
+connection.once('error', err => {
+  console.log('error from Mongoose', err);
+}); // end of mongoose connection
+
 app.disable('x-powered-by');
 app.use(compression());
 app.use(cors());
@@ -53,8 +71,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/', apiRouter);
 app.use('/api/admin', apiRouter);
-// swagger endpoint
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(
   '/graphql',
@@ -63,6 +79,9 @@ app.use(
     graphiql: true,
   }),
 );
+
+// swagger endpoint
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../', 'client/build')));
