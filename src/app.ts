@@ -46,9 +46,9 @@ app.use(
     stream: process.stdout,
   }),
 );
-
+console.log(process.env.MONGO_URI);
 // mongoose db connection
-mongoose.connect(`${process.env.MONGO_URI}`, {
+mongoose.connect(`mongodb://mongo:27017/fansunity`, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
