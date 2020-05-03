@@ -7,6 +7,6 @@ describe('Server', () => {
     return request(app)
       .get('/api')
       .expect('Content-Type', /json/)
-      .expect(200, { message: { hello: 'Hello World' } });
+      .expect(200, { message: { hello: 'Hello World fansunity' } });
   });
 });
