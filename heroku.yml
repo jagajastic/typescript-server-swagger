@@ -1,0 +1,37 @@
+version: '3.6'
+services:
+  api:
+    container_name: fansunity
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3005:3005
+    environment:
+      - JWT_TOKEN_SECRET=ajsonwebtokensecret
+      - MONGO_URI=mongodb://mongo:27017/fansunity
+      - PORT=3005
+      - MAIL_USER=tegaokem@gmail.com
+      - MAIL_PASS=11861538da
+      - FORGOT_PASS_EMAIL=noreply@fansunity.com
+    volumes:
+      - /app/node_modules
+      - .:/app
+    depends_on:
+      - mongo
+    networks:
+      - esnet
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+      - ./mongo-volume:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - esnet
+volumes:
+  esdata:
+networks:
+  esnet:
