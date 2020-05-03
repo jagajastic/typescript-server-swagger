@@ -47,7 +47,7 @@ app.use(
   }),
 );
 console.log(process.env.MONGO_URI);
-let dbURI = `${process.env.MONGO_URI}`;
+let dbURI: string = process.env.MONGO_URI!!;
 // mongoose db connection
 mongoose.connect(dbURI, {
   useNewUrlParser: true,
