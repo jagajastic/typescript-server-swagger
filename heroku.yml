@@ -4,7 +4,7 @@ services:
     container_name: fansunity
     build:
       context: .
-      dockerfile: Dockerfile
+      web: Dockerfile
     ports:
       - 3005:3005
     environment:
