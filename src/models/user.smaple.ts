@@ -14,33 +14,46 @@ export interface IUserNoExtend {
 }
 
 export interface IUser extends Document {
+  firstName: string;
+  lastName: string;
   email: string;
-  firstName: String;
-  lastName: String;
+  password: string;
+  phone?: string;
   DOB?: Date;
-  phone?: String;
-  password: String;
-  isDeleted?: Boolean;
-  isActive?: Boolean;
-  isVerified?: Boolean;
+  country?: string;
+  state?: string;
+  zip?: string;
+  address?: string;
+  pages?: string[];
+  groups?: string[];
+  aboutMe?: string;
+  isDeleted?: boolean;
+  roleId?: string[];
 }
 
 export interface ILogin {
   email: String;
+  phone?: String;
   password: string;
 }
 
 const UserModel = new Schema(
   {
-    email: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
     DOB: { type: Date },
     phone: { type: String },
-    password: { type: String, required: true },
+    country: { type: String },
+    state: { type: String },
+    zip: { type: String },
+    address: { type: String },
+    pages: [{ type: String }],
+    groups: [{ type: String }],
+    aboutMe: { type: String },
+    roleId: [{ type: String }],
     isDeleted: { type: Boolean, default: false },
-    isActive: { type: Boolean, default: true },
-    isVerified: { type: Boolean, default: false },
   },
   { timestamps: true },
 );
