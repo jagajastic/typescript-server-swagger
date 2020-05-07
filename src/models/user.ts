@@ -37,7 +37,7 @@ export interface ILogin {
   password: string;
 }
 
-const UserModel = new Schema(
+const UserModelSchema = new Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
@@ -58,11 +58,13 @@ const UserModel = new Schema(
   { timestamps: true },
 );
 
-UserModel.pre<IUser>('save', async function() {
+UserModelSchema.pre<IUser>('save', async function() {
   if (this.isModified('password')) {
     const salt = await bcrypt.genSalt(10);
     this.password = await hash(this.password.toString(), salt);
   }
 });
 
-export default mongoose.model<IUser>('User', UserModel);
+const UserModel = mongoose.model<IUser>('User', UserModelSchema);
+
+export default UserModel;
