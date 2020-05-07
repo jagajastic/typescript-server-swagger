@@ -12,7 +12,7 @@ const ChatModelSchema = new Schema(
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     recipientId: {
       type: Schema.Types.ObjectId,
-      ref: 'Recipient',
+      ref: 'User',
       required: true,
     },
     mediaURL: { type: String, required: true },
