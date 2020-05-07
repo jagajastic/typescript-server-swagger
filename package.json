@@ -39,7 +39,7 @@
     "@types/hapi__joi": "^16.0.12",
     "@types/http-errors": "1.6.1",
     "@types/http-status": "^1.1.2",
-    "@types/jest": "24.0.16",
+    "@types/jest": "^25.2.1",
     "@types/mongoose": "^5.7.14",
     "@types/morgan": "1.7.36",
     "@types/node": "10.14.13",
