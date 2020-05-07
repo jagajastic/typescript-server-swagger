@@ -15,8 +15,8 @@ const ChatModelSchema = new Schema(
       ref: 'User',
       required: true,
     },
-    mediaURL: { type: String, required: true },
-    content: { type: String, required: true },
+    mediaURL: { type: String },
+    content: { type: String },
   },
   { timestamps: true },
 );
