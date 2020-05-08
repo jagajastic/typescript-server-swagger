@@ -7,15 +7,17 @@ describe('Role Model', () => {
       description: 'Super admin role',
       abbreviation: 'SAD',
       roleId: 1,
-      actions: ['CREATE,VIEW,UPDATE,DELETE'],
+      actions: ['CREATE', 'VIEW', 'UPDATE', 'DELETE'],
     };
+
     const newRole = new RoleModel(roleInfo);
+    const actions = Array.from(newRole.actions);
     expect(newRole).toBeDefined();
     expect(newRole).toHaveProperty('name', roleInfo.name);
     expect(newRole).toHaveProperty('description', roleInfo.description);
     expect(newRole).toHaveProperty('description', roleInfo.description);
     expect(newRole).toHaveProperty('abbreviation', roleInfo.abbreviation);
     expect(newRole).toHaveProperty('roleId', roleInfo.roleId);
-    expect(newRole).toHaveProperty('actions', roleInfo.actions);
+    expect(actions).toEqual(roleInfo.actions);
   });
 });
