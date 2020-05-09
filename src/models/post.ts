@@ -16,7 +16,7 @@ const PostModelSchema = new Schema(
     type: { type: String, required: true },
     mediaURL: { type: String },
     text: { type: String, required: true },
-    isSharable: { type: String, required: true, default: true },
+    isSharable: { type: Boolean, required: true, default: true },
     likes: [{ type: String, required: true }],
     comments: [{ type: String, required: true }],
   },
