@@ -8,11 +8,11 @@ services:
     ports:
       - 3005:3005
     environment:
-      - JWT_TOKEN_SECRET=ajsonwebtokensecret
+      - JWT_TOKEN_SECRET=a_@jsonweb-to-kensecret
       - MONGO_URI=mongodb://mongo:27017/fansunity
       - PORT=3005
-      - MAIL_USER=tegaokem@gmail.com
-      - MAIL_PASS=11861538da
+      - MAIL_USER=info@fansunity.com
+      - MAIL_PASS=password
       - FORGOT_PASS_EMAIL=noreply@fansunity.com
     volumes:
       - /app/node_modules
