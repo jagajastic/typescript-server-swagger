@@ -2,25 +2,18 @@
 
 Have an overview feature of the app displayed in get started screen.
 
-#### Description of Task to be completed?
+#### Which Issue is this PR closing
 
-Have the get started screen show the following:
-
-1. Slider to show a brief description of core features of the app.
-2. A slider pagination to show current slide position.
-3. A get started button that leads to the sign up screen
-4. A login button that leads to login screen
+please to indicate issue that this pr is closing do; closes #issue-number e.g close #34
 
 #### How should this be manually tested?
 
-After cloning the repo,
-`CD` into it and `RUN`
-
-javascript
-git checkout ft-get-started-screen
-
-git pull origin ft-get-started-screen
-
-yarn install
+Please insert description on how this feature will be tested.
 
 #### Screenshots (if appropriate)
+
+If you are working on a screen it will be appropriate to add screenshoot
+
+#### Test coverage of the feature
+
+Your Test coverage should be atleast 90%
