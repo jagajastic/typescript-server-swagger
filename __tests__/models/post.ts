@@ -3,7 +3,7 @@ import PostModel from '../../src/models/post';
 describe('Post Model', () => {
   test('can model new post data', () => {
     const postContent = {
-      type: 'text',
+      type: 'timeline',
       mediaURL: 'https://media-url',
       text: 'My new post',
     };
