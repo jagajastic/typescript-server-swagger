@@ -1,5 +1,5 @@
 import TokenDecoder from '../helpers/TokenDecoder';
-import User from '../models/user.smaple';
+import User from '../models/user';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
