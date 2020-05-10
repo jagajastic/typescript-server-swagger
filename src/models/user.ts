@@ -54,6 +54,8 @@ const UserModelSchema = new Schema(
     aboutMe: { type: String },
     roleId: [{ type: String }],
     isDeleted: { type: Boolean, default: false },
+    isActive: { type: Boolean, default: false },
+    isVerified: { type: Boolean, default: false },
   },
   { timestamps: true },
 );
