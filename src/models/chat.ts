@@ -5,6 +5,7 @@ export interface IChat extends Document {
   recipientId: string;
   mediaURL?: string;
   content?: string;
+  status: boolean;
 }
 
 const ChatModelSchema = new Schema(
@@ -17,6 +18,7 @@ const ChatModelSchema = new Schema(
     },
     mediaURL: { type: String },
     content: { type: String },
+    status: { type: Boolean, default: false },
   },
   { timestamps: true },
 );
