@@ -7,6 +7,8 @@ import graphQLHTTP from 'express-graphql';
 import path from 'path';
 
 import apiRouter from './routes/index';
+import userRouter from './routes/user';
+
 import schema from './schema';
 import mongoose from 'mongoose';
 
@@ -73,7 +75,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/', apiRouter);
-app.use('/api/admin', apiRouter);
+app.use('/api/user', userRouter);
 
 app.use(
   '/graphql',
