@@ -8,7 +8,15 @@ export interface IUserNoExtend {
   DOB?: Date;
   phone?: String;
   password: String;
-  isDeleted?: Boolean;
+  country?: string;
+  state?: string;
+  zip?: string;
+  address?: string;
+  pages?: string[];
+  groups?: string[];
+  aboutMe?: string;
+  isDeleted?: boolean;
+  roleId?: string[];
   isActive?: Boolean;
   isVerified?: Boolean;
 }
