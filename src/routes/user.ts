@@ -1,6 +1,8 @@
 import { Router } from 'express';
+import { celebrate, Joi, Segments } from 'celebrate';
+import JoiValidationSchema from '../validations/user';
 import {
-  getAlluser,
+  getAllUser,
   getAUserByEmail,
   createUser,
   updateUserInfo,
@@ -8,12 +10,18 @@ import {
   getAUserById,
 } from '../controllers/user';
 
+const { validateNewUser } = JoiValidationSchema;
+
+const reqBodyValidation = celebrate({
+  [Segments.BODY]: Joi.object().keys(validateNewUser.body),
+});
+
 const router = Router();
 
 router
   .route('/')
-  .get(getAlluser)
-  .post(createUser);
+  .get(getAllUser)
+  .post(reqBodyValidation, createUser);
 
 router.route('/email/:email').get(getAUserByEmail);
 router.route('/id/:_id').get(getAUserById);
