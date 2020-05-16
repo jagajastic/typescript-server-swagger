@@ -14,9 +14,24 @@ export const getAlluser = async (_req: Request, res: Response) => {
 };
 
 // get a user
-export const getAUser = async (req: Request, res: Response) => {
+export const getAUserByEmail = async (req: Request, res: Response) => {
   try {
-    const userData: IUser | null = await getUser({ email: req.params.email });
+    const userData: IUser | null = await getUser(req.params);
+    if (!userData) {
+      return res.json(
+        response(httpStatus.NOT_FOUND, 'user not found', {}, null, ''),
+      );
+    }
+    return res.json(
+      response(httpStatus.OK, 'Success', userData || {}, null, ''),
+    );
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+export const getAUserById = async (req: Request, res: Response) => {
+  try {
+    const userData: IUser | null = await getUser(req.params);
     if (!userData) {
       return res.json(
         response(httpStatus.NOT_FOUND, 'user not found', {}, null, ''),
@@ -33,7 +48,7 @@ export const getAUser = async (req: Request, res: Response) => {
 // create a user
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const email = req.body;
+    const { email } = req.body;
     // check if email exist
     const isExist = await getUser({ email });
     if (!isExist) {
@@ -42,12 +57,13 @@ export const createUser = async (req: Request, res: Response) => {
       const subject =
         'Welcome to Fansunity! 👋 Please confirm your email address';
       const token = tokenEncoder(email, result._id, false);
-
       await sendMail(email, messages.confirmationEmail(token), subject);
+
       return res.json(
         response(httpStatus.OK, 'Success', result || {}, null, ''),
       );
     }
+
     return res.json(
       response(httpStatus.CONFLICT, 'Email Already Exist', {}, null, ''),
     );
