@@ -1,7 +1,7 @@
 import { Joi } from 'celebrate';
 
-export default {
-  createUser: {
+const JoiValidationSchema = {
+  validateNewUser: {
     body: {
       email: Joi.string()
         .email()
@@ -13,17 +13,17 @@ export default {
       lastName: Joi.string()
         .required()
         .error(new Error('Lastname is required')),
-      DOB: Joi.date()
-        .required()
-        .error(new Error('DOB is required')),
-      phone: Joi.string().error(new Error('Phone is required')),
       password: Joi.string()
         .min(6)
         .max(20)
         .required()
         .error(new Error('Password does not meet requirements')),
-      isActive: Joi.boolean().default(true),
-      isVerified: Joi.boolean().default(false),
+      DOB: Joi.date(),
+      phone: Joi.string(),
+      zip: Joi.string(),
+      state: Joi.string(),
+      country: Joi.string(),
+      address: Joi.string(),
     },
   },
   login: {
@@ -36,7 +36,8 @@ export default {
         .min(6)
         .max(20)
         .required()
-        .error(new Error('Password required')),
+        .error(new Error('Password is required')),
     },
   },
 };
+export default JoiValidationSchema;
