@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import bcrypt, { hash } from 'bcryptjs';
+import httpStatus from 'http-status';
 
 export interface IUserNoExtend {
   email: string;
@@ -68,11 +69,23 @@ const UserModelSchema = new Schema(
   { timestamps: true },
 );
 
-UserModelSchema.pre<IUser>('save', async function() {
+UserModelSchema.pre<IUser>('save', async function(this: IUser, next) {
+  const { email, phone } = this;
+  const userwithEmailExist = await UserModel.findOne({ email });
+  if (userwithEmailExist) {
+    throw { code: httpStatus.CONFLICT, message: 'Email already Exist' };
+  }
+  const userWithPhoneExist = await UserModel.findOne({ phone });
+  if (userWithPhoneExist) {
+    throw { code: httpStatus.CONFLICT, message: 'Phone number already Exist' };
+  }
+
   if (this.isModified('password')) {
     const salt = await bcrypt.genSalt(10);
     this.password = await hash(this.password.toString(), salt);
   }
+
+  next();
 });
 
 const UserModel = mongoose.model<IUser>('User', UserModelSchema);
