@@ -1,8 +1,4 @@
-import * as nodemailer from 'nodemailer';
-
-console.log(nodemailer);
-
-// var nodemailer: any = require("nodemailer");
+import nodemailer from 'nodemailer';
 
 const sendMail = (email: string, message: string, subject: string) => {
   const smtpTransport = nodemailer.createTransport({
