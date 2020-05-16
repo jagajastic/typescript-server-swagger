@@ -5,9 +5,10 @@ const message = {
 
       <p>Welcome to Fansunity, Please click link below to verify your email address</p>
 
-      ${process.env.CLIENT_SIDE_URL}/auth/verify?token=${token}
-
-      <p>Welcome fansunity.</p>
+       <p> 
+        <a href='${process.env.CLIENT_SIDE_URL}/auth/verify?token=${token}'>Verify Account</a>
+      </p>
+      <p>Welcome!</p>
     `;
   },
   forgotPassword: (token: string) => {
