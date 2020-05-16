@@ -1,9 +1,10 @@
-const response = (
-  statusCode: number,
-  message: string,
-  payload: object,
-  error: any,
-  token?: string,
-) => ({ statusCode, message, payload, error, token });
+interface IResponse {
+  statusCode: number;
+  message: string;
+  payload: object;
+  error?: any;
+  token?: string;
+}
+const response = (resp: IResponse) => resp;
 
 export default response;
