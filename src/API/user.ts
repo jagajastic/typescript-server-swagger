@@ -2,7 +2,7 @@ import User, { IUserNoExtend } from '../models/user';
 import { IUser } from '../models/user';
 
 // get all users
-export const allUsers = async () => User.find();
+export const allUsers = async () => User.find({ isDeleted: false });
 
 // get user by a define params
 export async function getUser<T>(arg: T): Promise<IUser | null> {
