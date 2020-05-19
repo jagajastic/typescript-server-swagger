@@ -5,7 +5,7 @@ import userModel from '../../src/models/user';
 describe('User Routes', () => {
   // clean up after testing everything
   afterAll(async () => {
-    await userModel.remove({});
+    await userModel.deleteMany({});
   });
 
   test('create', async () => {
