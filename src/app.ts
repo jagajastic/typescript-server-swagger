@@ -49,7 +49,9 @@ app.use(
   }),
 );
 
-const dbURI: string = process.env.MONGO_URI!!;
+const env = process.env.NODE_ENV;
+const dbURI: string =
+  env === 'test' ? process.env.MONGO_URI_TEST!! : process.env.MONGO_URI!!;
 // mongoose db connection
 mongoose.connect(dbURI, {
   useNewUrlParser: true,
