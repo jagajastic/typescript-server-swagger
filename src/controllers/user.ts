@@ -94,7 +94,7 @@ export const createUser = async (req: Request, res: Response) => {
     if (error.code) {
       return res.json(response({ ...error }));
     } else {
-      throw new Error(error);
+      return res.json(error);
     }
   }
 };
