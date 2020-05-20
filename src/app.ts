@@ -62,7 +62,7 @@ mongoose.connect(dbURI, {
 
 const connection = mongoose.connection;
 connection.once('open', () => {
-  console.error('MongoDB database connection established successfully!');
+  // console.log('MongoDB database connection established successfully!');
   // seed();
 });
 connection.once('open', () => {});
