@@ -42,7 +42,7 @@ export const getAUserByEmail = async (req: Request, res: Response) => {
     if (error.code) {
       return res.json(response({ ...error }));
     }
-    throw new Error(error);
+    throw error;
   }
 };
 
@@ -69,7 +69,7 @@ export const getAUserById = async (req: Request, res: Response) => {
     if (error.code) {
       return res.json(response({ ...error }));
     }
-    throw new Error(error);
+    throw error;
   }
 };
 
@@ -93,9 +93,8 @@ export const createUser = async (req: Request, res: Response) => {
   } catch (error) {
     if (error.code) {
       return res.json(response({ ...error }));
-    } else {
-      return res.json(error);
     }
+    throw error;
   }
 };
 
@@ -127,7 +126,7 @@ export const updateUserInfo = async (req: Request, res: Response) => {
     if (error.code) {
       return res.json(response({ ...error }));
     }
-    throw new Error(error);
+    throw error;
   }
 };
 
@@ -161,7 +160,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     if (error.code) {
       return res.json(response({ ...error }));
     }
-    throw new Error(error);
+    throw error;
   }
 };
 //
