@@ -5,15 +5,16 @@ import compression from 'compression';
 import morgan from 'morgan';
 import graphQLHTTP from 'express-graphql';
 import path from 'path';
+import swaggerUi from 'swagger-ui-express';
+import mongoose from 'mongoose';
+import { errors } from 'celebrate';
 
 import apiRouter from './routes/index';
 import userRouter from './routes/user';
+import authRouter from './routes/auth';
 
 import schema from './schema';
-import mongoose from 'mongoose';
 
-// swager doc import
-import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
 
 require('dotenv').config();
@@ -76,8 +77,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/', apiRouter);
-app.use('/api/user', userRouter);
+app.use('/api/v1', apiRouter);
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/auth', authRouter);
 
 app.use(
   '/graphql',
@@ -89,6 +91,9 @@ app.use(
 
 // swagger endpoint
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// add errors call to the app for it to return a jsonlied object
+app.use(errors());
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../', 'client/build')));
