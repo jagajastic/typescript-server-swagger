@@ -1,9 +1,4 @@
-import {
-  allUsers,
-  //   getUser,
-  saveUser,
-  //   updateUserDetails,
-} from '../../src/API/user';
+import { allUsers, getUser, saveUser } from '../../src/API/user';
 import { IUserNoExtend } from '../../src/models/user';
 
 const userData: IUserNoExtend = {
@@ -34,11 +29,11 @@ describe('User API', () => {
   });
 
   test('Get a user', () => {
-    // const id = getUser('fansunity@gmail.com');
-    // id.then((resp: IUser | null) => {
-    //   expect(resp.email).toContain({
-    //     email: 'fansunity@gmail.comuuu',
-    //   });
-    // });
+    const id = getUser({ email: 'fansunity@gmail.com' });
+    id.then(resp => {
+      if (resp) {
+        expect(resp.email!).toContain('fansunity@gmail.comuuu');
+      }
+    });
   });
 });
