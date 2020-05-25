@@ -1,7 +1,7 @@
-interface IResponse {
+export interface IResponse {
   statusCode: number;
   message: string;
-  payload: object;
+  payload: object | {};
   error?: any;
   token?: string;
 }
