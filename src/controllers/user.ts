@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
+import bcrypt, { hash } from 'bcryptjs';
+import httpStatus from 'http-status';
 import { allUsers, getUser, saveUser, updateUserDetails } from '../API/user';
 import response from '../helpers/response';
-import httpStatus from 'http-status';
-import { tokenEncoder } from '../helpers/tokenEncoder';
 import messages from '../helpers/mailMessage';
 import sendMail from '../helpers/sendMail';
+import uuidTokenGenerator from '../helpers/uuidGen';
 
 // get all users
 export const getAllUser = async (_req: Request, res: Response) => {
@@ -26,7 +27,7 @@ export const getAUserByEmail = async (req: Request, res: Response) => {
       return res.json(
         response({
           statusCode: httpStatus.NOT_FOUND,
-          message: 'user not found',
+          message: 'User not found',
           payload: {},
         }),
       );
@@ -53,7 +54,7 @@ export const getAUserById = async (req: Request, res: Response) => {
       return res.json(
         response({
           statusCode: httpStatus.NOT_FOUND,
-          message: 'user not found',
+          message: 'User not found',
           payload: {},
         }),
       );
@@ -76,12 +77,17 @@ export const getAUserById = async (req: Request, res: Response) => {
 // create a user
 export const createUser = async (req: Request, res: Response) => {
   try {
+    // get email
     const { email } = req.body;
+
+    // create uuid token
+    req.body.token = uuidTokenGenerator();
     const result = await saveUser(req.body);
+
     // send email after signup
     const subject =
       'Welcome to Fansunity! 👋 Please confirm your email address';
-    const token = tokenEncoder(email, result._id, false);
+    const token = req.body.token;
     sendMail(email, messages.confirmationEmail(token), subject);
     return res.json(
       response({
@@ -101,6 +107,12 @@ export const createUser = async (req: Request, res: Response) => {
 // update a user
 export const updateUserInfo = async (req: Request, res: Response) => {
   try {
+    const salt = await bcrypt.genSalt(10);
+
+    if (req.body.password) {
+      req.body.password = await hash(req.body.password.toString(), salt);
+    }
+
     // check user by id if he/she exist
     const updatedUserData = await updateUserDetails({
       _id: req.params.id,
@@ -118,7 +130,7 @@ export const updateUserInfo = async (req: Request, res: Response) => {
     return res.json(
       response({
         statusCode: httpStatus.OK,
-        message: 'account information updated',
+        message: 'Account information updated',
         payload: updatedUserData,
       }),
     );
@@ -143,7 +155,7 @@ export const deleteUser = async (req: Request, res: Response) => {
       return res.json(
         response({
           statusCode: httpStatus.NOT_FOUND,
-          message: 'user not found',
+          message: 'User not found',
           payload: {},
         }),
       );
@@ -152,7 +164,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     return res.json(
       response({
         statusCode: httpStatus.OK,
-        message: 'account deleted',
+        message: 'Account deleted',
         payload: deletedUserData,
       }),
     );
