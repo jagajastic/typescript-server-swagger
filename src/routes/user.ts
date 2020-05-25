@@ -10,26 +10,35 @@ import {
   getAUserById,
 } from '../controllers/user';
 
+import authRoute from '../API/auth';
+
+// extract the validators from the object
 const { validateNewUser } = JoiValidationSchema;
 
+// validate user object body
 const reqBodyValidation = celebrate({
   [Segments.BODY]: Joi.object().keys(validateNewUser.body),
 });
 
+// instantiate router
 const router = Router();
 
+// get and create user route
 router
   .route('/')
-  .get(getAllUser)
+  .get(authRoute, getAllUser)
   .post(reqBodyValidation, createUser);
 
-router.route('/email/:email').get(getAUserByEmail);
-router.route('/id/:_id').get(getAUserById);
+// get user by email
+router.route('/email/:email').get(authRoute, getAUserByEmail);
 
-// route
+// get user by id
+router.route('/id/:_id').get(authRoute, getAUserById);
+
+// update and delete route
 router
   .route('/:id')
-  .put(updateUserInfo)
-  .delete(deleteUser);
+  .put(authRoute, updateUserInfo)
+  .delete(authRoute, deleteUser);
 
 export default router;
