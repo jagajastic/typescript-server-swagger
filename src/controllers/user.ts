@@ -113,7 +113,7 @@ export const updateUserInfo = async (req: Request, res: Response) => {
       req.body.password = await hash(req.body.password.toString(), salt);
     }
 
-    // check user by id if he/she exist
+    // Try updating user information.
     const updatedUserData = await updateUserDetails({
       _id: req.params.id,
       body: req.body,
