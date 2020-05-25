@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import app from '../../src/app';
 import request from 'supertest';
 import userModel from '../../src/models/user';
-// import { saveUser } from '../../src/API/user';
 
 describe('User Routes', () => {
   // clean up after testing everything
