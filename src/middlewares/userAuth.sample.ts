@@ -4,13 +4,13 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { decodedToken } = TokenDecoder(req);
+    const decodedToken = TokenDecoder(req, res);
 
     if (!decodedToken) {
       throw new Error('This token may have expired');
     }
 
-    const { id } = decodedToken;
+    const id = decodedToken;
 
     const user = await User.findById(id);
 
