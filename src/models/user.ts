@@ -23,9 +23,11 @@ export interface IUserNoExtend {
 }
 
 export interface IUser extends Document {
+  payload: any;
   firstName: string;
   lastName: string;
   email: string;
+  token: string;
   password: string;
   phone?: string;
   DOB?: Date;
@@ -53,7 +55,7 @@ const UserModelSchema = new Schema(
     email: { type: String, required: true },
     password: { type: String, required: true },
     DOB: { type: Date },
-    phone: { type: String },
+    phone: { type: String, unique: true, required: true },
     country: { type: String },
     state: { type: String },
     zip: { type: String },
@@ -62,6 +64,7 @@ const UserModelSchema = new Schema(
     groups: [{ type: String }],
     aboutMe: { type: String },
     roleId: [{ type: String }],
+    token: { type: String },
     isDeleted: { type: Boolean, default: false },
     isActive: { type: Boolean, default: false },
     isVerified: { type: Boolean, default: false },
