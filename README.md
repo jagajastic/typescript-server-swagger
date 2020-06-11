@@ -25,15 +25,6 @@ Documentation and GraphQL route
 
 ---
 
-Deployed to Heroku
-
-```bash
-    https://shrouded-sea-00241.herokuapp.com/api/
-
-```
-
----
-
-The server part of this system is already designed and exposes a set of REST endpoints via the `/api` route and a GraphQL endpoint.
+The server part of this system is already designed and exposes a set of REST endpoints via the `/api/v1/` route and a GraphQL endpoint.
 
 The client has been setup to consume graphql if you chose to use that instead.

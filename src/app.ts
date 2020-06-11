@@ -5,13 +5,16 @@ import compression from 'compression';
 import morgan from 'morgan';
 import graphQLHTTP from 'express-graphql';
 import path from 'path';
+import swaggerUi from 'swagger-ui-express';
+import { connect } from './helpers/db';
+import { errors } from 'celebrate';
 
 import apiRouter from './routes/index';
-import schema from './schema';
-import mongoose from 'mongoose';
+import userRouter from './routes/user';
+import authRouter from './routes/auth';
 
-// swager doc import
-import swaggerUi from 'swagger-ui-express';
+import schema from './schema';
+
 import swaggerDocument from './swagger.json';
 
 require('dotenv').config();
@@ -47,24 +50,8 @@ app.use(
   }),
 );
 
-const dbURI: string = process.env.MONGO_URI!!;
-// mongoose db connection
-mongoose.connect(dbURI, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-});
-
-const connection = mongoose.connection;
-connection.once('open', () => {
-  console.error('MongoDB database connection established successfully!');
-  // seed();
-});
-connection.once('open', () => {});
-connection.once('error', err => {
-  console.log('error from Mongoose', err);
-}); // end of mongoose connection
+// db connection
+connect();
 
 app.disable('x-powered-by');
 app.use(compression());
@@ -72,8 +59,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/', apiRouter);
-app.use('/api/admin', apiRouter);
+app.use('/api/v1', apiRouter);
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/auth', authRouter);
 
 app.use(
   '/graphql',
@@ -85,6 +73,9 @@ app.use(
 
 // swagger endpoint
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// add errors call to the app for it to return a jsonlied object
+app.use(errors());
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../', 'client/build')));

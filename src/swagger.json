@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Fans Unity System",
+    "title": "Project Unity System",
     "description": "A social app API",
     "license": {
       "name": "MIT",
