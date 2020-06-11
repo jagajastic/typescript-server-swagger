@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import graphQLHTTP from 'express-graphql';
 import path from 'path';
 import swaggerUi from 'swagger-ui-express';
-import mongoose from 'mongoose';
+import { connect } from './helpers/db';
 import { errors } from 'celebrate';
 
 import apiRouter from './routes/index';
@@ -50,26 +50,8 @@ app.use(
   }),
 );
 
-const env = process.env.NODE_ENV;
-const dbURI: string =
-  env === 'test' ? process.env.MONGO_URI_TEST!! : process.env.MONGO_URI!!;
-// mongoose db connection
-mongoose.connect(dbURI, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-});
-
-const connection = mongoose.connection;
-connection.once('open', () => {
-  // console.log('MongoDB database connection established successfully!');
-  // seed();
-});
-connection.once('open', () => {});
-connection.once('error', err => {
-  console.log('error from Mongoose', err);
-}); // end of mongoose connection
+// db connection
+connect();
 
 app.disable('x-powered-by');
 app.use(compression());
