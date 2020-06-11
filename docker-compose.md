@@ -1,12 +1,12 @@
 version: '3.6'
 services:
 api:
-container_name: emall-cont
+container_name: project-name
 build:
 context: .
 dockerfile: Dockerfile
 ports: - 3005:3005
-environment: - JWT_TOKEN_SECRET=ajsonwebtokensecret - MONGO_URI=mongodb://mongo:27017/emall - PORT=3005 - MAIL_USER=tegaokem@gmail.com - MAIL_PASS=11861538da - FORGOT_PASS_EMAIL=noreply@garahub.com - CLIENT_SIDE_URL=http://localhost:3001 - ELASTICSEARCH_URI=http://elasticsearch:9200
+environment: - JWT_TOKEN_SECRET=ajsonwebtokensecret - MONGO_URI=mongodb://mongo:27017/project - PORT=3005 - MAIL_USER=project@gmail.com - MAIL_PASS=11861538da - FORGOT_PASS_EMAIL=noreply@project.com - CLIENT_SIDE_URL=http://localhost:3001 - ELASTICSEARCH_URI=http://elasticsearch:9200
 volumes: - /app/node_modules - .:/app
 links: - elasticsearch
 depends_on: - elasticsearch - mongo
