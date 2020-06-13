@@ -189,7 +189,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
     // check if the user exist, else throw not found error
     if (!userObject) {
-      return res.json(
+      return res.status(httpStatus.NOT_FOUND).json(
         response({
           statusCode: httpStatus.NOT_FOUND,
           message: 'Email does not exist :(',

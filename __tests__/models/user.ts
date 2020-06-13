@@ -27,6 +27,5 @@ describe('User Model', () => {
     expect(newUser).toHaveProperty('state', 'Lagos');
     expect(newUser).toHaveProperty('zip', '100928');
     expect(newUser).toHaveProperty('address', 'Lekki');
-    expect(newUser).toHaveProperty('aboutMe', 'little about me');
   });
 });

@@ -13,9 +13,6 @@ export interface IUserNoExtend {
   state?: string;
   zip?: string;
   address?: string;
-  pages?: string[];
-  groups?: string[];
-  aboutMe?: string;
   isDeleted?: boolean;
   roleId?: string[];
   isActive?: Boolean;
@@ -35,9 +32,6 @@ export interface IUser extends Document {
   state?: string;
   zip?: string;
   address?: string;
-  pages?: string[];
-  groups?: string[];
-  aboutMe?: string;
   isDeleted?: boolean;
   roleId?: string[];
 }
@@ -60,9 +54,6 @@ const UserModelSchema = new Schema(
     state: { type: String },
     zip: { type: String },
     address: { type: String },
-    pages: [{ type: String }],
-    groups: [{ type: String }],
-    aboutMe: { type: String },
     roleId: [{ type: String }],
     token: { type: String },
     isDeleted: { type: Boolean, default: false },

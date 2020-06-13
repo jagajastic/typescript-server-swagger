@@ -10,7 +10,7 @@ import uuidTokenGenerator from '../helpers/uuidGen';
 // get all users
 export const getAllUser = async (_req: Request, res: Response) => {
   const userData = await allUsers();
-  return res.json(
+  return res.status(httpStatus.OK).json(
     response({
       statusCode: httpStatus.OK,
       message: 'success',
@@ -24,7 +24,7 @@ export const getAUserByEmail = async (req: Request, res: Response) => {
   try {
     const userData = await getUser(req.params);
     if (!userData) {
-      return res.json(
+      return res.status(httpStatus.NOT_FOUND).json(
         response({
           statusCode: httpStatus.NOT_FOUND,
           message: 'User not found',
@@ -32,7 +32,7 @@ export const getAUserByEmail = async (req: Request, res: Response) => {
         }),
       );
     }
-    return res.json(
+    return res.status(httpStatus.OK).json(
       response({
         statusCode: httpStatus.OK,
         message: 'Success',
@@ -41,7 +41,7 @@ export const getAUserByEmail = async (req: Request, res: Response) => {
     );
   } catch (error) {
     if (error.code) {
-      return res.json(response({ ...error }));
+      return res.status(error.code).json(response({ ...error }));
     }
     throw error;
   }
@@ -51,7 +51,7 @@ export const getAUserById = async (req: Request, res: Response) => {
   try {
     const userData = await getUser(req.params);
     if (!userData) {
-      return res.json(
+      return res.status(httpStatus.NOT_FOUND).json(
         response({
           statusCode: httpStatus.NOT_FOUND,
           message: 'User not found',
@@ -59,7 +59,7 @@ export const getAUserById = async (req: Request, res: Response) => {
         }),
       );
     }
-    return res.json(
+    return res.status(httpStatus.OK).json(
       response({
         statusCode: httpStatus.OK,
         message: 'Success',
@@ -68,7 +68,7 @@ export const getAUserById = async (req: Request, res: Response) => {
     );
   } catch (error) {
     if (error.code) {
-      return res.json(response({ ...error }));
+      return res.status(error.code).json(response({ ...error }));
     }
     throw error;
   }
@@ -89,7 +89,7 @@ export const createUser = async (req: Request, res: Response) => {
       'Welcome to Fansunity! 👋 Please confirm your email address';
     const token = req.body.token;
     sendMail(email, messages.confirmationEmail(token), subject);
-    return res.json(
+    return res.status(httpStatus.OK).json(
       response({
         statusCode: httpStatus.OK,
         message: 'Success',
@@ -98,7 +98,7 @@ export const createUser = async (req: Request, res: Response) => {
     );
   } catch (error) {
     if (error.code) {
-      return res.json(response({ ...error }));
+      return res.status(error.code).json(response({ ...error }));
     }
     throw error;
   }
@@ -119,7 +119,7 @@ export const updateUserInfo = async (req: Request, res: Response) => {
       body: req.body,
     });
     if (!updatedUserData) {
-      return res.json(
+      return res.status(httpStatus.NOT_FOUND).json(
         response({
           statusCode: httpStatus.NOT_FOUND,
           message: 'user not found',
@@ -127,7 +127,7 @@ export const updateUserInfo = async (req: Request, res: Response) => {
         }),
       );
     }
-    return res.json(
+    return res.status(httpStatus.OK).json(
       response({
         statusCode: httpStatus.OK,
         message: 'Account information updated',
@@ -136,7 +136,7 @@ export const updateUserInfo = async (req: Request, res: Response) => {
     );
   } catch (error) {
     if (error.code) {
-      return res.json(response({ ...error }));
+      return res.status(error.code).json(response({ ...error }));
     }
     throw error;
   }
@@ -152,7 +152,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     });
 
     if (!deletedUserData) {
-      return res.json(
+      return res.status(httpStatus.NOT_FOUND).json(
         response({
           statusCode: httpStatus.NOT_FOUND,
           message: 'User not found',
@@ -161,7 +161,7 @@ export const deleteUser = async (req: Request, res: Response) => {
       );
     }
 
-    return res.json(
+    return res.status(httpStatus.OK).json(
       response({
         statusCode: httpStatus.OK,
         message: 'Account deleted',
@@ -170,7 +170,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     );
   } catch (error) {
     if (error.code) {
-      return res.json(response({ ...error }));
+      return res.status(error.code).json(response({ ...error }));
     }
     throw error;
   }

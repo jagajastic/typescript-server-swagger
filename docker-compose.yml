@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   api:
-    container_name: project
+    container_name: fansunity
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,11 +9,11 @@ services:
       - 3005:3005
     environment:
       - JWT_TOKEN_SECRET=a_@jsonweb-to-kensecret
-      - MONGO_URI=mongodb://mongo:27017/project
+      - MONGO_URI=mongodb://mongo:27017/fansunity
       - PORT=3005
-      - MAIL_USER=info@project.com
+      - MAIL_USER=info@fansunity.com
       - MAIL_PASS=password
-      - FORGOT_PASS_EMAIL=noreply@project.com
+      - FORGOT_PASS_EMAIL=noreply@fansunity.com
     volumes:
       - /app/node_modules
       - .:/app

@@ -29,6 +29,7 @@ const authRoute = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = decodedToken.payload;
 
     // get user from db by id
+    console.log(decodedToken);
     const user = await getUser({ _id: id });
 
     // check if the user exist
